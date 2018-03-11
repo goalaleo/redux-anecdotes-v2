@@ -43,7 +43,7 @@ const reducer = (state = initialState, action) => {
     return [...old, { ...voted, votes: voted.votes+1 }]
   }
   case 'CREATE':
-    return [...state, { content: action.anecdote.content, id: getId(), votes:0 }]
+    return [...state, { content: action.content, id: getId(), votes:0 }]
   default:
     return state
   }
