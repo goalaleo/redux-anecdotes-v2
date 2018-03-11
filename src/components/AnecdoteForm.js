@@ -5,7 +5,7 @@ class AnecdoteForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const content = e.target.anecdote.value
-    this.props.store.dispatch(anecdoteCreation(content))
+    this.context.store.dispatch(anecdoteCreation(content))
 
     e.target.anecdote.value = ''
   }
