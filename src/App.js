@@ -14,8 +14,8 @@ class App extends React.Component {
     return (
       <div>
         <h1>Programming anecdotes</h1>
-        <Notification store={store} />
-        <Filter store={store} />
+        <Notification />
+        <Filter />
         <AnecdoteList store={store} />
         <AnecdoteForm store={store} />
       </div>
