@@ -37,7 +37,6 @@ const AnecdoteList = (props) => {
 }
 
 const anecdotesToShow = (anecdotes, filter) => {
-  console.log(filter)
   if (filter === '') {
     return anecdotes
   }
