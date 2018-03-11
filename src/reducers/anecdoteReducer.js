@@ -12,10 +12,10 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-export const anecdoteCreation = (content) => {
+export const anecdoteCreation = (data) => {
   return {
     type: 'CREATE',
-    content
+    data
   }
 }
 
@@ -43,7 +43,7 @@ const reducer = (state = initialState, action) => {
     return [...old, { ...voted, votes: voted.votes+1 }]
   }
   case 'CREATE':
-    return [...state, { content: action.content, id: getId(), votes:0 }]
+    return [...state, { content: action.data.content, id: action.data.id, votes:0 }]
   case 'INIT_ANECDOTES':
     return action.data
   default:

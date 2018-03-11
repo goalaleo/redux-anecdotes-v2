@@ -1,24 +1,29 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { anecdoteCreation } from '../reducers/anecdoteReducer'
+import anecdoteService from '../services/anecdotes'
 
-const AnecdoteForm = (props) => {
-  const handleSubmit = (e) => {
+class AnecdoteForm extends React.Component {
+  handleSubmit = async (e) => {
     e.preventDefault()
+    e.persist()
     const content = e.target.anecdote.value
-    props.anecdoteCreation(content)
+    const newNote = await anecdoteService.createNew(content)
+    this.props.anecdoteCreation(newNote)
     e.target.anecdote.value = ''
   }
 
-  return (
-    <div>
-      <h2>create new</h2>
-      <form onSubmit={handleSubmit}>
-        <div><input name='anecdote'/></div>
-        <button>create</button>
-      </form>
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        <h2>create new</h2>
+        <form onSubmit={this.handleSubmit}>
+          <div><input name='anecdote'/></div>
+          <button>create</button>
+        </form>
+      </div>
+    )
+  }
 }
 
 export default connect(
