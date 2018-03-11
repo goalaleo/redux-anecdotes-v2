@@ -7,13 +7,12 @@ const getAll = async () => {
   return response.data
 }
 
-const createNew = async (content) => {
-  const response = await axios.post(url, { content })
+const createNew = async (anecdote) => {
+  const response = await axios.post(url, anecdote)
   return response.data
 }
 
 const update = async (anecdote) => {
-  console.log('updating', anecdote)
   const response = await axios.put(`${url}/${anecdote.id}`, anecdote)
   return response.data
 }

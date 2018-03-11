@@ -3,17 +3,19 @@ import anecdoteService from '../services/anecdotes'
 const anecdotesAtStart = []
 const initialState = anecdotesAtStart
 
-export const anecdoteCreation = (data) => {
-  return {
-    type: 'CREATE',
-    data
+export const anecdoteCreation = (content) => {
+  return async (dispatch) => {
+    const newAnecdote = await anecdoteService.createNew({ content, votes: 0 })
+    dispatch({
+      type: 'CREATE',
+      newAnecdote
+    })
   }
 }
 
 export const initializeAnecdotes = () => {
   return async (dispatch) => {
     const anecdotes = await anecdoteService.getAll()
-    console.log('got notes', anecdotes  )
     dispatch({
       type: 'INIT_ANECDOTES',
       anecdotes
@@ -38,7 +40,7 @@ const reducer = (state = initialState, action) => {
     return [...old, { ...voted, votes: action.anecdote.votes }]
   }
   case 'CREATE':
-    return [...state, { content: action.data.content, id: action.data.id, votes:0 }]
+    return [...state, { content: action.newAnecdote.content, id: action.newAnecdote.id, votes:0 }]
   case 'INIT_ANECDOTES':
     return action.anecdotes
   default:

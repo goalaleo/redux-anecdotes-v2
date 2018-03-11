@@ -8,7 +8,6 @@ import anecdoteService from '../services/anecdotes'
 const AnecdoteList = (props) => {
   const notifyingAnecdoteVote = async (anecdote) => {
     const votedAnecdote= await anecdoteService.update({ ...anecdote, votes: anecdote.votes + 1 })
-    console.log('response to vote', votedAnecdote)
 
 
     props.anecdoteVote(votedAnecdote)
