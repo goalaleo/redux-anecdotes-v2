@@ -26,26 +26,27 @@ export const anecdoteCreation = (content) => {
   }
 }
 
-export const anecdoteVote = (id) => {
+export const anecdoteVote = (anecdote) => {
   return {
     type: 'VOTE',
-    id: id
+    anecdote
   }
 }
 
-const reducer = (store = initialState, action) => {
-  if (action.type==='VOTE') {
-    const old = store.filter(a => a.id !==action.id)
-    const voted = store.find(a => a.id === action.id)
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+  case 'VOTE': {
+
+    const old = state.filter(a => a.id !== action.anecdote.id)
+    const voted = state.find(a => a.id === action.anecdote.id)
 
     return [...old, { ...voted, votes: voted.votes+1 }]
   }
-  if (action.type === 'CREATE') {
-
-    return [...store, { content: action.content, id: getId(), votes:0 }]
+  case 'CREATE':
+    return [...state, { content: action.anecdote.content, id: getId(), votes:0 }]
+  default:
+    return state
   }
-
-  return store
 }
 
 export default reducer

@@ -1,9 +1,20 @@
 import React from 'react'
 import { anecdoteVote } from '../reducers/anecdoteReducer'
+import { showNotification } from '../reducers/notificationReducer'
+import { hideNotification } from '../reducers/notificationReducer'
 
 class AnecdoteList extends React.Component {
   render() {
-    const anecdotes = this.props.anecdotes
+    const store = this.props.store
+    const anecdotes = store.getState().anecdotes
+    const notifyingAnecdoteVote = (anecdote) => {
+      store.dispatch(anecdoteVote(anecdote))
+      store.dispatch(showNotification(anecdote.content))
+      setTimeout(() => {
+        store.dispatch(hideNotification())
+      }, 5000)
+
+    }
     return (
       <div>
         <h2>Anecdotes</h2>
@@ -14,8 +25,9 @@ class AnecdoteList extends React.Component {
             </div>
             <div>
               has {anecdote.votes}
-              <button onClick={() =>
-                this.context.store.dispatch(anecdoteVote(anecdote.id))
+              <button onClick={() => {
+                notifyingAnecdoteVote(anecdote)
+              }
               }>
                 vote
               </button>

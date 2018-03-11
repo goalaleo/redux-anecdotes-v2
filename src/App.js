@@ -4,15 +4,14 @@ import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
 
 class App extends React.Component {
-
   render() {
-    const { anecdotes, notification } = this.props.store.getState()
+    const store = this.props.store
     return (
       <div>
         <h1>Programming anecdotes</h1>
-        <Notification notification={notification} />
-        <AnecdoteList anecdotes={anecdotes} />
-        <AnecdoteForm />
+        <Notification store={store} />
+        <AnecdoteList store={store} />
+        <AnecdoteForm store={store} />
       </div>
     )
   }
